@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
+import './index.css';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React234
-        </a>
-      </header>
-    </div>
-  );
-}
+import BackgroundVideo from './components/BackgroundVideo/BackgroundVideo.jsx';
+import PlayerForm from './components/forma/PlayerForm';
 
-export default App;
+const App = () => {
+  return (
+    <>
+      <BackgroundVideo />
+      <div className="content">
+        <h1 className='flag'>Welcome to G.O.A.T football coach, Alehandro del Busha !</h1>
+        <p>Here you can fill up information about a player</p>
+        <div>
+
+        <PlayerForm />
+
+        <div className="ten-gon"></div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default App
