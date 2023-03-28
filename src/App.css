@@ -7,33 +7,3 @@
 }
 
 
-.player-form-container {
-  position: relative;
-}
-
-.shapes-container {
-  position: absolute;
-}
-
-
-
-.ten-gon,
-.diagram {
-  margin: 0 auto;
-  
-  width: 300px;
-  height: 300px;
-  background-color: red;
-  opacity: 0.5;
-  clip-path: polygon(50% 0%, 75% 10%, 95% 35%, 95% 65%, 75% 90%, 50% 100%, 25% 90%, 5% 65%, 5% 35%, 25% 10%, 50% 0%, 75% 10%);
-
-  position: absolute;
-  left: 200px;
-  top: 0;
-
-}
-
-.diagram{background-color: blue;
-  opacity: 0.1;
-z-index: 2;
-}
