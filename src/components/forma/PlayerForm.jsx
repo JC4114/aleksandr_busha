@@ -3,7 +3,7 @@ import InputField from './InputField';
 import './PlayerForm.css'
 
 function PlayerForm() {
-  const labels = ['Player Name', 'Speed', 'Endurance', 'Shooting Accuracy', 'Dribbling Skills', 'Physical Strength', 'Heading Ability', 'Defence', 'Reaction Time', 'Teamwork'];
+  const labels = ['Passing', 'Speed', 'Endurance', 'Shooting Accuracy', 'Dribbling Skills', 'Physical Strength', 'Heading Ability', 'Defence', 'Reaction Time', 'Teamwork'];
   const fields = [];
 
   for (let i = 0; i < labels.length; i++) {

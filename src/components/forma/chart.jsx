@@ -10,52 +10,54 @@ import {
 
 const data = [
   {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150
+    subject: 'Passing',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150
+    subject: 'Speed',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150
+    subject: 'Endurance',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150
+    subject: 'Shooting Accuracy',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150
+    subject: 'Dribbling Skills',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150
+    subject: 'Physical Strength',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "321",
-    A: 65,
-    B: 85,
-    fullMark: 150
+    subject: 'Heading Ability',
+    A: '',
+    fullMark: 100
   },
   {
-    subject: "123",
-    A: 65,
-    B: 85,
-    fullMark: 150
+    subject: 'Defence',
+    A: '',
+    fullMark: 100
+  },
+  {
+    subject: 'Reaction Time',
+    A: '',
+    fullMark: 100
+  },
+  {
+    subject: 'Teamwork',
+    A: '',
+    fullMark: 100
   },
 ];
 
