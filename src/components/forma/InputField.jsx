@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import './PlayerForm.css'
 
-function InputField({ label, type='number', max=100, onChange }) {
+function InputField({ label, type='number', max=100,value }) {
   const handleChange = (e) => {
     const value = e.target.value;
     // здесь можно сделать что-то с полученным значением
@@ -12,7 +12,7 @@ function InputField({ label, type='number', max=100, onChange }) {
   return (
     <Form.Group>
       <Form.Label>{label}</Form.Label>
-      <Form.Control type={type} max={max} onChange={handleChange} />
+      <Form.Control type={type} max={max} value={value} onChange={handleChange} />
     </Form.Group>
   );
 }
