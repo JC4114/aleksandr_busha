@@ -8,60 +8,8 @@ import {
   PolarRadiusAxis
 } from "recharts";
 
-const data = [
-  {
-    subject: 'Passing',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Speed',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Endurance',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Shooting Accuracy',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Dribbling Skills',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Physical Strength',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Heading Ability',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Defence',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Reaction Time',
-    A: '',
-    fullMark: 100
-  },
-  {
-    subject: 'Teamwork',
-    A: '',
-    fullMark: 100
-  },
-];
 
-export default function Chart() {
+export default function Chart({data}) {
   return (
     <RadarChart
     className="chart"
