@@ -2,13 +2,12 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    text-align: right;
-    margin-right: 1111px;
+    align-items: flex-end;
+    width: 220px;
   }
   
-  .form label {
-    width: 120px;
-    text-align: left;
+  .form * *{
+    width: 100%;
   }
   
   .form input{
