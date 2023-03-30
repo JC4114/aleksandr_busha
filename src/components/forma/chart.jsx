@@ -8,21 +8,20 @@ import {
   PolarRadiusAxis
 } from "recharts";
 
+export default function Chart({ data}) {
+  const chartData = data.map(item => ({ ...item, fullMark:100 })); // добавляем fullMark в каждый элемент массива data
 
-export default function Chart({data}) {
   return (
     <RadarChart
-    className="chart"
-      cx={300}
-      cy={250}
+      className="chart"
       outerRadius={150}
-      width={500}
-      height={500}
-      data={data}
+      width={600}
+      height={340}
+      data={chartData} // передаем измененный массив
     >
       <PolarGrid />
       <PolarAngleAxis dataKey="subject" />
-      <PolarRadiusAxis />
+      <PolarRadiusAxis domain={[0, 100]} /> {/* задаем диапазон значений для оси */}
       <Radar
         name="Mike"
         dataKey="A"
