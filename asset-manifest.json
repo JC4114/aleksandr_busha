@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.b01ca204.css",
-    "main.js": "/my-app/static/js/main.f4de1abf.js",
-    "static/media/beck.mp4": "/my-app/static/media/beck.246a943a463525356ece.mp4",
-    "index.html": "/my-app/index.html",
-    "main.b01ca204.css.map": "/my-app/static/css/main.b01ca204.css.map",
-    "main.f4de1abf.js.map": "/my-app/static/js/main.f4de1abf.js.map"
+    "main.css": "/aleksandr_busha/static/css/main.b01ca204.css",
+    "main.js": "/aleksandr_busha/static/js/main.44248b43.js",
+    "static/media/beck.mp4": "/aleksandr_busha/static/media/beck.246a943a463525356ece.mp4",
+    "index.html": "/aleksandr_busha/index.html",
+    "main.b01ca204.css.map": "/aleksandr_busha/static/css/main.b01ca204.css.map",
+    "main.44248b43.js.map": "/aleksandr_busha/static/js/main.44248b43.js.map"
   },
   "entrypoints": [
     "static/css/main.b01ca204.css",
-    "static/js/main.f4de1abf.js"
+    "static/js/main.44248b43.js"
   ]
 }
