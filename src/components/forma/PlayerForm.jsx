@@ -21,6 +21,8 @@ function PlayerForm() {
     subjects.map(subject => ({ subject, A: '' }))
   );
 
+  const [playerName, setPlayerName] = useState('');
+
   const handleChange = useCallback((event, index) => {
     setData(prevData => {
       const newData = [...prevData];
@@ -28,6 +30,17 @@ function PlayerForm() {
       return newData;
     });
   }, []);
+
+  const handlePlayerNameChange = useCallback((event) => {
+    setPlayerName(event.target.value);
+  }, []);
+
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+    // Here you can send the form data to the database using a fetch or axios request
+    console.log('Player name:', playerName);
+    console.log('Player data:', data);
+  }, [playerName, data]);
 
   const fields = data.map((item, index) => (
     <InputField
@@ -40,7 +53,14 @@ function PlayerForm() {
 
   return (
     <div className='container'>
-      <div className='form'>{fields}</div>
+      <form className='form' onSubmit={handleSubmit}>
+        <label>
+          Player Name:
+          <input type="text" value={playerName} onChange={handlePlayerNameChange} />
+        </label>
+        {fields}
+        <button type="submit">Submit</button>
+      </form>
       <Chart data={data} />
     </div>
   );
