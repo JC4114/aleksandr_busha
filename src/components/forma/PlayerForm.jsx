@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import Chart from './Chart';
 import InputField from './InputField';
+import database from '../../firebase';
 import './PlayerForm.css';
+
 
 function PlayerForm() {
   const subjects = [
@@ -37,9 +39,10 @@ function PlayerForm() {
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    // Here you can send the form data to the database using a fetch or axios request
-    console.log('Player name:', playerName);
-    console.log('Player data:', data);
+    database.ref('players').push({
+      name: playerName,
+      scores: data
+    });
   }, [playerName, data]);
 
   const fields = data.map((item, index) => (
