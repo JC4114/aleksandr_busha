@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import Chart from './chart';
+import Chart from './Chart';
 import InputField from './InputField';
 import './PlayerForm.css';
 
