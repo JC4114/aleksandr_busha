@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import Chart from './Chart';
 import InputField from './InputField';
+import { push, ref } from 'firebase/database';
 import database from '../../firebase';
 import './PlayerForm.css';
-
 
 function PlayerForm() {
   const subjects = [
@@ -39,7 +39,7 @@ function PlayerForm() {
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    database.ref('players').push({
+    push(ref(database, 'players'), {
       name: playerName,
       scores: data
     });
