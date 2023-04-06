@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback,useMemo } from 'react';
 import Chart from './Chart';
 import InputField from './InputField';
 import { push, ref } from 'firebase/database';
@@ -6,7 +6,7 @@ import database from '../../firebase';
 import './PlayerForm.css';
 
 function PlayerForm() {
-  const subjects = [
+  const subjects = useMemo(() => [
     'Passing',
     'Speed',
     'Endurance',
@@ -17,7 +17,7 @@ function PlayerForm() {
     'Defence',
     'Reaction Time',
     'Teamwork'
-  ];
+  ], []);
 
   const [data, setData] = useState(
     subjects.map(subject => ({ subject, A: '' }))
@@ -43,7 +43,8 @@ function PlayerForm() {
       name: playerName,
       scores: data
     });
-  }, [playerName, data]);
+    setData(subjects.map(subject => ({ subject, A: '' }))); // обнуляем значения всех инпутов
+  }, [playerName, data, subjects]);
 
   const fields = data.map((item, index) => (
     <InputField
