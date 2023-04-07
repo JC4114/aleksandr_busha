@@ -8,6 +8,7 @@ function PlayerList() {
   const [players, setPlayers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
+  const [filteredPlayers, setFilteredPlayers] = useState(null); // Set initial value of filteredPlayers to null
 
   useEffect(() => {
     const playersRef = ref(database, 'players');
@@ -22,6 +23,19 @@ function PlayerList() {
     });
   }, []);
 
+  useEffect(() => {
+    // Update filteredPlayers based on searchTerm and selectedOption
+    if (selectedOption) {
+      setFilteredPlayers(players.filter((player) => player.id === selectedOption.value));
+    } else if (searchTerm) {
+      setFilteredPlayers(players.filter((player) =>
+        player.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ));
+    } else {
+      setFilteredPlayers(null);
+    }
+  }, [players, searchTerm, selectedOption]);
+
   const options = players.map((player) => ({ value: player.id, label: player.name }));
 
   const handleSearch = (inputValue) => {
@@ -31,14 +45,6 @@ function PlayerList() {
   const handleSelect = (selectedOption) => {
     setSelectedOption(selectedOption);
   };
-
-  const filteredPlayers = selectedOption
-    ? players.filter((player) => player.id === selectedOption.value)
-    : searchTerm
-    ? players.filter((player) =>
-        player.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : players;
 
   return (
     <div>
@@ -54,7 +60,7 @@ function PlayerList() {
         onChange={handleSelect}
         onInputChange={handleSearch}
       />
-      {filteredPlayers.map((player) => (
+      {filteredPlayers && filteredPlayers.map((player) => ( // Check if filteredPlayers is not null before rendering
         <div key={player.id}>
           <h2>{player.name}</h2>
           <ul>
