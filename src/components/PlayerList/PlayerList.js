@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { get, ref } from 'firebase/database';
 import database from '../../firebase';
+import Select from 'react-select';
+import { css } from '@emotion/css';
 
 function PlayerList() {
   const [players, setPlayers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     const playersRef = ref(database, 'players');
@@ -19,30 +22,38 @@ function PlayerList() {
     });
   }, []);
 
-  const filteredPlayers = searchTerm
+  const options = players.map((player) => ({ value: player.id, label: player.name }));
+
+  const handleSearch = (inputValue) => {
+    setSearchTerm(inputValue);
+  };
+
+  const handleSelect = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  const filteredPlayers = selectedOption
+    ? players.filter((player) => player.id === selectedOption.value)
+    : searchTerm
     ? players.filter((player) =>
         player.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
-    : [];
+    : players;
 
   return (
     <div>
       <h1>Player List</h1>
-      <form>
-        <label htmlFor="search">Search:</label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          list="players"
-        />
-        <datalist id="players">
-          {filteredPlayers.map((player) => (
-            <option key={player.id} value={player.name} />
-          ))}
-        </datalist>
-      </form>
+      <Select
+        className={css`
+          width: 200px;
+          margin-bottom: 10px;
+        `}
+        options={options}
+        placeholder="Search players"
+        isClearable
+        onChange={handleSelect}
+        onInputChange={handleSearch}
+      />
       {filteredPlayers.map((player) => (
         <div key={player.id}>
           <h2>{player.name}</h2>
