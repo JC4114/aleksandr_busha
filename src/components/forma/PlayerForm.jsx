@@ -4,6 +4,7 @@ import InputField from './InputField';
 import { push, ref } from 'firebase/database';
 import database from '../../firebase';
 import './PlayerForm.css';
+import PlayerList from '../PlayerList/PlayerList';
 
 function PlayerForm() {
   const subjects = useMemo(() => [
@@ -66,6 +67,7 @@ function PlayerForm() {
         <button type="submit">Submit</button>
       </form>
       <Chart data={data} />
+      <PlayerList/>
     </div>
   );
 }

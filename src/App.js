@@ -4,7 +4,6 @@ import './App.css';
 
 import BackgroundVideo from './components/BackgroundVideo/BackgroundVideo.jsx';
 import PlayerForm from './components/forma/PlayerForm';
-import PlayerList from './components/PlayerList/PlayerList';
 
 const App = () => {
   return (
@@ -15,7 +14,6 @@ const App = () => {
         <p>Here you can fill up information about a player</p>
 
         <PlayerForm />
-        <PlayerList/>
       </div>
     </>
   );
