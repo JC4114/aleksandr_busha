@@ -5,7 +5,6 @@ import database from '../../firebase';
 function PlayerList() {
   const [players, setPlayers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   useEffect(() => {
     const playersRef = ref(database, 'players');
@@ -20,13 +19,11 @@ function PlayerList() {
     });
   }, []);
 
-  const filteredPlayers = players.filter((player) =>
-    player.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handlePlayerClick = (player) => {
-    setSelectedPlayer(player);
-  };
+  const filteredPlayers = searchTerm
+    ? players.filter((player) =>
+        player.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div>
@@ -46,27 +43,18 @@ function PlayerList() {
           ))}
         </datalist>
       </form>
-      {selectedPlayer ? (
-        <div>
-          <h2>{selectedPlayer.name}</h2>
+      {filteredPlayers.map((player) => (
+        <div key={player.id}>
+          <h2>{player.name}</h2>
           <ul>
-            {selectedPlayer.scores.map((score) => (
+            {player.scores.map((score) => (
               <li key={score.subject}>
                 {score.subject}: {score.A}
               </li>
             ))}
           </ul>
-          <button onClick={() => setSelectedPlayer(null)}>Back to list</button>
         </div>
-      ) : (
-        <div>
-          {filteredPlayers.map((player) => (
-            <div key={player.id} onClick={() => handlePlayerClick(player)}>
-              <h2>{player.name}</h2>
-            </div>
-          ))}
-        </div>
-      )}
+      ))}
     </div>
   );
 }
