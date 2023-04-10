@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { get, ref } from 'firebase/database';
+import {  off, ref, onValue } from 'firebase/database';
 import database from '../../firebase';
 import Select from 'react-select';
 import { css } from '@emotion/css';
@@ -12,17 +12,21 @@ function PlayerList({onSelect}) {
 
   useEffect(() => {
     const playersRef = ref(database, 'players');
-    get(playersRef).then((snapshot) => {
-      const players = [];
-      snapshot.forEach((childSnapshot) => {
-        const player = childSnapshot.val();
-        player.id = childSnapshot.key;
-        players.push(player);
-      });
-      setPlayers(players);
+  
+    const playersListener = onValue(playersRef, (snapshot) => {
+      const players = snapshot.val();
+      const newPlayers = [];
+      for (let key in players) {
+        newPlayers.push({ ...players[key], id: key });
+      }
+      setPlayers(newPlayers);
     });
+  
+    return () => {
+      off(playersListener);
+    };
   }, []);
-
+    
   useEffect(() => {
     // Update filteredPlayers based on searchTerm and selectedOption
     if (selectedOption) {
