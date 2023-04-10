@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/aleksandr_busha/static/css/main.b01ca204.css",
-    "main.js": "/aleksandr_busha/static/js/main.44248b43.js",
+    "main.js": "/aleksandr_busha/static/js/main.f1d0e345.js",
     "static/media/beck.mp4": "/aleksandr_busha/static/media/beck.246a943a463525356ece.mp4",
     "index.html": "/aleksandr_busha/index.html",
     "main.b01ca204.css.map": "/aleksandr_busha/static/css/main.b01ca204.css.map",
-    "main.44248b43.js.map": "/aleksandr_busha/static/js/main.44248b43.js.map"
+    "main.f1d0e345.js.map": "/aleksandr_busha/static/js/main.f1d0e345.js.map"
   },
   "entrypoints": [
     "static/css/main.b01ca204.css",
-    "static/js/main.44248b43.js"
+    "static/js/main.f1d0e345.js"
   ]
 }
