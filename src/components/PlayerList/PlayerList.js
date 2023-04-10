@@ -4,7 +4,7 @@ import database from '../../firebase';
 import Select from 'react-select';
 import { css } from '@emotion/css';
 
-function PlayerList() {
+function PlayerList({onSelect}) {
   const [players, setPlayers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
@@ -44,8 +44,9 @@ function PlayerList() {
 
   const handleSelect = (selectedOption) => {
     setSelectedOption(selectedOption);
+    const selectedPlayer = players.find((player) => player.id === selectedOption.value);
+    onSelect(selectedPlayer); // Call the callback function with the selected player as argument
   };
-
   return (
     <div>
       <h1>Player List</h1>

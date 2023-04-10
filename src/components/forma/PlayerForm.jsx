@@ -24,6 +24,13 @@ function PlayerForm() {
     subjects.map(subject => ({ subject, A: '' }))
   );
 
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+
+  const handlePlayerSelect = (player) => {
+    setSelectedPlayer(player);
+    setPlayerName(player.name);
+    setData(player.scores);  };
+
   const [playerName, setPlayerName] = useState('');
 
   const handleChange = useCallback((event, index) => {
@@ -67,7 +74,7 @@ function PlayerForm() {
         <button type="submit">Submit</button>
       </form>
       <Chart data={data} />
-      <PlayerList/>
+      <PlayerList  onSelect={handlePlayerSelect}/>
     </div>
   );
 }
