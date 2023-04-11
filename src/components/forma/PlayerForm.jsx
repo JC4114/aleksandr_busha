@@ -113,7 +113,7 @@ function PlayerForm() {
   return (
     <div className='container'>
       <form className='form' onSubmit={handleSubmit}>
-        <label>
+        <label className='playerName'>
           Player Name:
           <input type='text' value={playerName} onChange={handlePlayerNameChange} />
         </label>
