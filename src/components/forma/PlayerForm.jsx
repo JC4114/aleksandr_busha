@@ -1,10 +1,11 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import Chart from './Chart';
 import InputField from './InputField';
-import { equalTo, get, orderByChild, push, query, ref } from 'firebase/database';
+import { equalTo, get, orderByChild, push, query, ref, update } from 'firebase/database';
 import database from '../../firebase';
 import './PlayerForm.css';
 import PlayerList from '../PlayerList/PlayerList';
+import { useEffect } from 'react';
 
 function PlayerForm() {
   const subjects = useMemo(
@@ -27,6 +28,17 @@ function PlayerForm() {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [playerName, setPlayerName] = useState('');
   const [photoPreview, setPhotoPreview] = useState(null); // добавляем стейт для фото
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (selectedPlayer) {
+      setSelectedPlayer(selectedPlayer);
+      setPlayerName(selectedPlayer.name);
+      setData(selectedPlayer.scores);
+      setPhotoPreview(selectedPlayer.photo);
+      setEditing(true);
+    }
+  }, [selectedPlayer]);
 
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
@@ -53,27 +65,36 @@ function PlayerForm() {
     (event) => {
       event.preventDefault();
       const playersRef = ref(database, 'players');
-      // Проверяем, есть ли игрок с таким же именем в базе данных
       const queryRef = query(playersRef, orderByChild('name'), equalTo(playerName));
       get(queryRef).then((snapshot) => {
         if (snapshot.exists()) {
-          alert('Player with this name already exists');
-          return;
+          const playerKey = Object.keys(snapshot.val())[0];
+          update(ref(database, `players/${playerKey}`), {
+            name: playerName,
+            scores: data,
+            photo: photoPreview,
+          }).then(() => {
+            setData(subjects.map((subject) => ({ subject, A: '' })));
+            setPlayerName('');
+            setPhotoPreview(null);
+            setSelectedPlayer(null); // сброс выбранного игрока
+          });
         } else {
           push(playersRef, {
             name: playerName,
             scores: data,
             photo: photoPreview,
+          }).then(() => {
+            setData(subjects.map((subject) => ({ subject, A: '' })));
+            setPlayerName('');
+            setPhotoPreview(null);
           });
-          setData(subjects.map((subject) => ({ subject, A: '' })));
-          setPlayerName('');
-          setPhotoPreview(null);
         }
       });
     },
     [playerName, data, subjects, photoPreview]
   );
-  
+    
   const handlePhotoChange = useCallback((event) => {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
