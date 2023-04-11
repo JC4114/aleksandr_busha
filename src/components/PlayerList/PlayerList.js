@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import {  off, ref, onValue } from 'firebase/database';
+import { off, ref, onValue, remove } from 'firebase/database';
 import database from '../../firebase';
 import Select from 'react-select';
 import { css } from '@emotion/css';
 
-function PlayerList({onSelect}) {
+function PlayerList({ onSelect }) {
   const [players, setPlayers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
-  const [filteredPlayers, setFilteredPlayers] = useState(null); // Set initial value of filteredPlayers to null
+  const [filteredPlayers, setFilteredPlayers] = useState(null);
 
   useEffect(() => {
     const playersRef = ref(database, 'players');
-  
+
     const playersListener = onValue(playersRef, (snapshot) => {
       const players = snapshot.val();
       const newPlayers = [];
@@ -21,20 +21,19 @@ function PlayerList({onSelect}) {
       }
       setPlayers(newPlayers);
     });
-  
+
     return () => {
       off(playersListener);
     };
   }, []);
-    
+
   useEffect(() => {
-    // Update filteredPlayers based on searchTerm and selectedOption
     if (selectedOption) {
       setFilteredPlayers(players.filter((player) => player.id === selectedOption.value));
     } else if (searchTerm) {
-      setFilteredPlayers(players.filter((player) =>
-        player.name.toLowerCase().includes(searchTerm.toLowerCase())
-      ));
+      setFilteredPlayers(
+        players.filter((player) => player.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
     } else {
       setFilteredPlayers(null);
     }
@@ -48,9 +47,16 @@ function PlayerList({onSelect}) {
 
   const handleSelect = (selectedOption) => {
     setSelectedOption(selectedOption);
-    const selectedPlayer = players.find((player) => player.id === selectedOption.value);
-    onSelect(selectedPlayer); // Call the callback function with the selected player as argument
+    if (selectedOption) {
+      const selectedPlayer = players.find((player) => player.id === selectedOption.value);
+      onSelect(selectedPlayer);
+    }
   };
+
+  const handleDelete = (playerId) => {
+    remove(ref(database, `players/${playerId}`));
+  };
+
   return (
     <div>
       <h1>Player List</h1>
@@ -65,18 +71,21 @@ function PlayerList({onSelect}) {
         onChange={handleSelect}
         onInputChange={handleSearch}
       />
-      {filteredPlayers && filteredPlayers.map((player) => ( // Check if filteredPlayers is not null before rendering
-        <div key={player.id}>
-          <h2>{player.name}</h2>
-          <ul>
-            {player.scores.map((score) => (
-              <li key={score.subject}>
-                {score.subject}: {score.A}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {filteredPlayers &&
+        filteredPlayers.map((player) => (
+          <div key={player.id}>
+            <h2>{player.name}</h2>
+            <ul>
+              {player.scores.map((score) => (
+                <li key={score.subject}>
+                  {score.subject}: {score.A}
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => handleDelete(player.id)}>Delete</button>
+
+          </div>
+        ))}
     </div>
   );
 }
